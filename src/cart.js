@@ -3,22 +3,23 @@ function notImplemented() {
 }
 
 function addToCart(cart, product, count) { 
-
+  let newCart = structuredClone(cart);
   let newCount;
-  let newProduct = cart.filter((p) => product.id === p.id)[0];
+  let newProduct = newCart.filter((p) => product.id === p.id)[0];
   if(newProduct?.quantity){
     newCount = newProduct.quantity + count;
   } else{
     newCount = count;
   }
-  if(newCount > product.stock || newCount === 0){
+  if(newCount > product.stock || count === 0){
       throw new RangeError;
     }  
   if(!newProduct){
-    return [{...product, quantity: newCount}];
+    newCart.push({...product, quantity: count})
+    return newCart;
   }
   else{
-    return cart.map((p) => {
+    return newCart.map((p) => {
       if(p.id === newProduct.id){
         return {...p, quantity: newCount};
       }
