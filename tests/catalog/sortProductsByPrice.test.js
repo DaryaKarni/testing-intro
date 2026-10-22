@@ -34,8 +34,8 @@ describe('sortProductsByPrice', () => {
     expect(arr).toEqual(products.filter((p) => [1, 3, 4].includes(p.id)));
   });
   test('направление по умолчанию не меняет исходный массив всех товаров', () => {
-    const arr = products.filter((p) => [1, 3, 4].includes(p.id));
-    sortProductsByPrice(arr).map((p) => p.id)
-    expect(arr).toEqual(products.filter((p) => [1, 3, 4].includes(p.id)));
+    const arr = [...products];
+    sortProductsByPrice(arr);
+    expect(arr).toEqual([...products]);
   });
 });
